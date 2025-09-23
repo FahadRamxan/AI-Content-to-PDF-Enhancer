@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Web Content Enhancer</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                <h1>AI Content Enhancer</h1>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="status-section">
+                <div class="page-info">
+                    <h3>Current Page</h3>
+                    <p id="page-title">Loading...</p>
+                    <p id="page-url">Loading...</p>
+                </div>
+            </div>
+
+            <div class="options-section">
+                <h3>Enhancement Options</h3>
+                <div class="option-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="summarize" checked>
+                        <span class="checkmark"></span>
+                        <span class="label-text">Summarize Content</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="expand-context" checked>
+                        <span class="checkmark"></span>
+                        <span class="label-text">Add Context & Background</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="validate-claims">
+                        <span class="checkmark"></span>
+                        <span class="label-text">Validate Claims</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="ai-settings">
+                <h3>AI Settings</h3>
+                <div class="input-group">
+                    <label for="api-key">OpenAI API Key:</label>
+                    <input type="password" id="api-key" placeholder="sk-...">
+                    <button id="save-key" class="secondary-btn">Save</button>
+                </div>
+                <div class="model-select">
+                    <label for="model">Model:</label>
+                    <select id="model">
+                        <option value="gpt-4">GPT-4</option>
+                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="process-content" class="primary-btn">
+                    <span class="btn-text">Enhance Content</span>
+                    <div class="loading-spinner" style="display: none;"></div>
+                </button>
+                <button id="generate-pdf" class="secondary-btn" disabled>
+                    Generate PDF
+                </button>
+            </div>
+
+            <div class="progress-section" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p class="progress-text">Processing content...</p>
+            </div>
+
+            <div class="results-section" style="display: none;">
+                <h3>Enhanced Content Preview</h3>
+                <div class="content-preview">
+                    <div class="preview-content" id="preview-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Generator</title>
+</head>
+<body>
+    <h2>Icon Generator for Browser Extension</h2>
+    <p>This page helps generate PNG icons from SVG. Open browser dev tools and run the script.</p>
+    
+    <canvas id="canvas16" width="16" height="16" style="border: 1px solid #ccc; margin: 5px;"></canvas>
+    <canvas id="canvas48" width="48" height="48" style="border: 1px solid #ccc; margin: 5px;"></canvas>
+    <canvas id="canvas128" width="128" height="128" style="border: 1px solid #ccc; margin: 5px;"></canvas>
+    
+    <script>
+        const svgString = `<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="128" height="128" rx="20" fill="url(#gradient)"/>
+          <path d="M32 24L64 40L96 24L64 8L32 24Z" stroke="white" stroke-width="3" stroke-linejoin="round" fill="none"/>
+          <path d="M32 56L64 72L96 56" stroke="white" stroke-width="3" stroke-linejoin="round" fill="none"/>
+          <path d="M32 88L64 104L96 88" stroke="white" stroke-width="3" stroke-linejoin="round" fill="none"/>
+          <circle cx="64" cy="64" r="8" fill="white"/>
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+        </svg>`;
+
+        function generateIcon(size) {
+            const canvas = document.getElementById(`canvas${size}`);
+            const ctx = canvas.getContext('2d');
+            
+            const img = new Image();
+            const svg = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+            const url = URL.createObjectURL(svg);
+            
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, size, size);
+                URL.revokeObjectURL(url);
+                
+                // Convert to PNG and download
+                canvas.toBlob(function(blob) {
+                    const a = document.createElement('a');
+                    a.download = `icon${size}.png`;
+                    a.href = URL.createObjectURL(blob);
+                    a.click();
+                    URL.revokeObjectURL(a.href);
+                });
+            };
+            
+            img.src = url;
+        }
+
+        // Generate all icon sizes
+        setTimeout(() => {
+            generateIcon(16);
+            setTimeout(() => generateIcon(48), 100);
+            setTimeout(() => generateIcon(128), 200);
+        }, 1000);
+    </script>
+</body>
+</html>
+
